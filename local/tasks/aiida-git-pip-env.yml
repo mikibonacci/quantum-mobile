@@ -1,0 +1,13 @@
+---
+#- name: Clone a repository from GitHub
+#  git:
+#    repo: "{{ github_repo_url }}"
+#    dest: "{{ local_clone_path }}"
+
+- name: Install packages using pip from local clone
+  pip:
+    name: "{{ item }}"
+    state: present
+    editable: true
+    virtualenv: "~/.conda/envs/{{ conda_env }}" # "{{ local_clone_path }}/venv"
+  with_items: "{{ aiida_yambo_packages }}"
